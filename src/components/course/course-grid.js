@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
-import { Button, Table } from 'react-bootstrap'
-import CourseEditModal from './course-edit-modal';
-import CourseAddModal from './course-add-modal';
+import React, { useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
+import CourseEditModal from "./course-edit-modal";
+import CourseAddModal from "./course-add-modal";
+import { allCourses } from "../../api/course-service";
+import { toast } from "../../helpers/swal";
 
 const CourseGrid = () => {
-    const [showAddModal, setShowAddModal] = useState(false);
-    const handleCloseAddModal = () => setShowAddModal(false);
-    const handleShowAddModal = () => setShowAddModal(true);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const handleCloseAddModal = () => setShowAddModal(false);
+  const handleShowAddModal = () => setShowAddModal(true);
 
-    const [showEditModal, setShowEditModal] = useState(false);
-    const handleCloseEditModal = () => setShowEditModal(false);
-    const handleShowEditModal = () => setShowEditModal(true);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleCloseEditModal = () => setShowEditModal(false);
+  const handleShowEditModal = () => setShowEditModal(true);
+
+  const [courses, setCourses] = useState([]);
+
+  const loadData = async () => {
+    try {
+      const resp = await allCourses();
+      setCourses(resp.data);
+    } catch (err) {
+      toast("end", err.response.data.message, "warning", 2000);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
   return (
     <>
       <Button variant="primary" className="mb-3" onClick={handleShowAddModal}>
@@ -29,18 +46,17 @@ const CourseGrid = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td className="d-flex align-items-center justify-content-center">
-              <Button
-                variant="danger"
-                style={{ width: "50%" }}
-              >
-                Delete
-              </Button>
-            </td>
-          </tr>
+          {courses.map((course, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{course.name}</td>
+              <td className="d-flex align-items-center justify-content-center">
+                <Button variant="danger" style={{ width: "50%" }}>
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
       {showAddModal && (
@@ -54,6 +70,6 @@ const CourseGrid = () => {
       )}
     </>
   );
-}
+};
 
-export default CourseGrid
+export default CourseGrid;

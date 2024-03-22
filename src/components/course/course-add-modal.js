@@ -1,10 +1,12 @@
-import { ErrorMessage, Field, Formik, useFormik } from "formik";
-import React from "react";
+import { ErrorMessage, Field, Formik } from "formik";
+import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "../../helpers/swal";
 import { object, string } from "yup";
+import { addCourse } from "../../api/course-service";
 
 const CourseAddModal = ({ show, handleClose }) => {
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     name: "",
     surname: "",
@@ -20,22 +22,19 @@ const CourseAddModal = ({ show, handleClose }) => {
 
   const onSubmit = async (values) => {
     try {
-      // const resp = await addCity(values)
-      // toast("end",resp.data.name + " adding successful", "success", 2000);
-      handleClose(); // Modalı kapat
+      setLoading(true);
+      const resp = await addCourse(values);
+      if (resp.status === 201 && resp.data.success === true) {
+        toast("end", resp.data.message + " adding successful", "success", 2000);
+        handleClose();
+      }
     } catch (error) {
       toast(error.response.data.message, "warning", 2000);
     } finally {
-      // setLoading(false);
-      formik.resetForm();
+      setLoading(false);
     }
   };
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit,
-  });
   return (
     <>
       <Modal size="lg" show={show} onHide={handleClose}>
@@ -49,38 +48,38 @@ const CourseAddModal = ({ show, handleClose }) => {
             onSubmit={onSubmit}
             enableReinitialize={true}
           >
-            <Form>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput1"
-              >
-                <Form.Label>Name</Form.Label>
-                <Field
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="form-control"
-                  placeholder="Name"
-                />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  className="text-red-500 text-sm mt-1 text-danger"
-                />
-              </Form.Group>
-            </Form>
+            {({ handleSubmit }) => (
+              <Form onSubmit={handleSubmit}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Name</Form.Label>
+                  <Field
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="form-control"
+                    placeholder="Name"
+                  />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className="text-red-500 text-sm mt-1 text-danger"
+                  />
+                </Form.Group>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button disabled={loading} variant="primary" type="submit">
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Form>
+            )}
           </Formik>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" type="submit" onClick={formik.handleSubmit}>
-            {" "}
-            {/* Form submit işlemi */}
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

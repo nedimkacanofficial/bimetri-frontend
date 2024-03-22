@@ -1,15 +1,15 @@
 import bimetri from "./api-instance";
 
 
-export const getAllCities = () => {
-    return bimetri.get("cities");
+export const allStudents = () => {
+    return bimetri.get("students");
 }
-export const addCity = (city) => {
-    return bimetri.post("cities", city);
+export const addStudent = (student) => {
+    return bimetri.post("students", student);
 }
-export const updateCity = (id, city) => {
-    return bimetri.put(`cities/${id}`, city);
+export const updateStudent = (id, student) => {
+    return bimetri.put(`students/${id}`, student);
 }
-export const deleteCity = (id) => {
-    return bimetri.delete(`cities/${id}`);
+export const deleteStudent = (id) => {
+  return bimetri.delete(`students/${id}`);
 }

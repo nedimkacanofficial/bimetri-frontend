@@ -8,7 +8,7 @@ const Footer = () => {
     <Navbar
       expand="lg"
       className="bg-dark"
-      style={{ position: "fixed", bottom: 0, width: "100%", zIndex: 100 }}
+      style={{ position: "relative", bottom: 0, width: "100%", zIndex: 100 }}
     >
       <Container className="justify-content-center">
         <Navbar.Brand

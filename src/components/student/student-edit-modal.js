@@ -1,10 +1,11 @@
-import { ErrorMessage, Field, Formik, useFormik } from "formik";
-import React from "react";
+import { ErrorMessage, Field, Formik } from "formik";
+import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "../../helpers/swal";
 import { object, string } from "yup";
 
 const StudentEditModal = ({ show, handleClose }) => {
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     name: "",
     surname: "",
@@ -34,16 +35,10 @@ const StudentEditModal = ({ show, handleClose }) => {
     } catch (error) {
       toast(error.response.data.message, "warning", 2000);
     } finally {
-      // setLoading(false);
-      formik.resetForm();
+      setLoading(false);
     }
   };
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit,
-  });
   return (
     <Modal size="lg" show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -54,7 +49,6 @@ const StudentEditModal = ({ show, handleClose }) => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
-          enableReinitialize={true}
         >
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -109,7 +103,7 @@ const StudentEditModal = ({ show, handleClose }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" type="submit" onClick={formik.handleSubmit}>
+        <Button variant="primary" disabled={loading} type="submit">
           Save Changes
         </Button>
       </Modal.Footer>
