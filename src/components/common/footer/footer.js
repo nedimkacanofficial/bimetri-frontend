@@ -10,12 +10,13 @@ const Footer = () => {
       className="bg-dark"
       style={{ position: "fixed", bottom: 0, width: "100%", zIndex: 100 }}
     >
-      <Container className='justify-content-center'>
+      <Container className="justify-content-center">
         <Navbar.Brand
           as={Link}
-          to="/students"
+          to="https://github.com/nedimkacanofficial"
           active={pathname === "/students"}
           className="text-white"
+          target="blank"
         >
           ndmkcn
         </Navbar.Brand>

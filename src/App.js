@@ -3,8 +3,10 @@ import CustomRoutes from './router/custom-routes'
 
 const App = () => {
   return (
-    <CustomRoutes />
-  )
+    <>
+      <CustomRoutes />
+    </>
+  );
 }
 
 export default App

@@ -1,6 +1,6 @@
 import React from 'react'
 import UserTemplate from '../../templates/user-template'
-import StudentGrid from '../../components/student/student-grid'
+import CourseGrid from '../../components/course/course-grid';
 
 const CoursePage = () => {
   return (
@@ -11,7 +11,7 @@ const CoursePage = () => {
       >
         <div className="col-10">
           <h2 className="text-center">Course Operations</h2>
-          <StudentGrid />
+          <CourseGrid />
         </div>
       </div>
     </UserTemplate>
