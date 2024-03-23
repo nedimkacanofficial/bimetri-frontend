@@ -6,6 +6,11 @@ export const allCourses = () => {
 export const coursesWithoutStudents = () => {
   return bimetri.get("courses/courses-without-students");
 };
+export const coursesEnroll = (studentId, courseId) => {
+  return bimetri.post(
+    `courses/enroll?studentId=${studentId}&courseId=${courseId}`
+  );
+};
 export const addCourse = (cours) => {
   return bimetri.post("courses", cours);
 };

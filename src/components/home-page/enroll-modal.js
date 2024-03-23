@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "../../helpers/swal";
 import { object, string } from "yup";
-import { allCourses } from "../../api/course-service";
-import { allStudents, coursesEnroll } from "../../api/student-service";
+import { allCourses, coursesEnroll } from "../../api/course-service";
+import { allStudents } from "../../api/student-service";
 
 const EnrollModal = ({ show, handleClose, loadData }) => {
   const [loading, setLoading] = useState(false);
