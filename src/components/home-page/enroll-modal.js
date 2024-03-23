@@ -19,7 +19,7 @@ const EnrollModal = ({ show, handleClose, loadData }) => {
           setCourses(resp.data);
         }
       } catch (error) {
-        toast(error.response.data.message, 2000);
+        toast("end", error.response.data.message, "error", 2000);
       }
     };
 
@@ -30,7 +30,7 @@ const EnrollModal = ({ show, handleClose, loadData }) => {
           setStudents(resp.data);
         }
       } catch (error) {
-        toast(error.response.data.message, 2000);
+        toast("end", error.response.data.message, "error", 2000);
       }
     };
 
@@ -59,7 +59,7 @@ const EnrollModal = ({ show, handleClose, loadData }) => {
         handleClose();
       }
     } catch (error) {
-      toast(error.response.data.message, 2000);
+      toast("end", error.response.data.message, "warning", 2000);
     } finally {
       setLoading(false);
     }

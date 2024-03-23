@@ -28,7 +28,7 @@ const CourseAddModal = ({ show, handleClose, loadData }) => {
         handleClose();
       }
     } catch (error) {
-      toast(error.response.data.message, 2000);
+      toast("end", error.response.data.message, "error", 2000);
     } finally {
       setLoading(false);
     }

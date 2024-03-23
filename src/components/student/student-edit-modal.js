@@ -36,7 +36,7 @@ const StudentEditModal = ({ show, handleClose, loadData, selectedStudent }) => {
       loadData();
       handleClose();
     } catch (error) {
-      toast(error.response.data.message, "warning", 2000);
+      toast("end", error.response.data.message, "error", 2000);
     } finally {
       setLoading(false);
     }

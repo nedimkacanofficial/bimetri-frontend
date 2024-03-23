@@ -49,7 +49,7 @@ const StudentGrid = () => {
         toast("end", "Filtering successful.", "success", 2000);
       }
     } catch (err) {
-      toast("end", err.response.data.message, "warning", 2000);
+      toast("end", err.response.data.message, "error", 2000);
     } finally {
       setLoading(false);
     }
@@ -120,12 +120,7 @@ const StudentGrid = () => {
                           loadData();
                         }
                       } catch (err) {
-                        toast(
-                          "end",
-                          err.response.data.message,
-                          "warning",
-                          2000
-                        );
+                        toast("end", err.response.data.message, "error", 2000);
                       }
                     }}
                   >
