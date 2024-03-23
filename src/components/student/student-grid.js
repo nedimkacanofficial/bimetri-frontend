@@ -67,7 +67,7 @@ const StudentGrid = () => {
         disabled={loading}
         onClick={handleStudentsWithoutCourses}
       >
-        Courses without students
+       Students without courses
       </Button>
       <Table striped bordered hover>
         <thead>
