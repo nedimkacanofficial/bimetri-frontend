@@ -23,8 +23,8 @@ const Header = () => {
           active={pathname === "/"}
           style={{
             display: "flex",
-            alignItems: "center", // Dikeyde ortala
-            height: "100%", // Navbar.Brand'ı kaplaması için
+            alignItems: "center",
+            height: "100%",
           }}
         >
           <img
