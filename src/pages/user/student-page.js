@@ -1,6 +1,6 @@
-import React from 'react'
-import UserTemplate from '../../templates/user-template'
-import StudentGrid from '../../components/student/student-grid';
+import React from "react";
+import UserTemplate from "../../templates/user-template";
+import StudentGrid from "../../components/student/student-grid";
 
 const StudentPage = () => {
   return (
@@ -16,6 +16,6 @@ const StudentPage = () => {
       </div>
     </UserTemplate>
   );
-}
+};
 
 export default StudentPage;

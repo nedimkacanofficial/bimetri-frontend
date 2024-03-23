@@ -1,12 +1,8 @@
-import React from 'react'
-import UserTemplate from '../../templates/user-template'
+import React from "react";
+import NotFound from "../../components/common/not-found/not-found";
 
 const NotFoundPage = () => {
-  return (
-    <UserTemplate>
-        <div>Not Found Page</div>
-    </UserTemplate>
-  )
-}
+  return <NotFound />;
+};
 
-export default NotFoundPage
+export default NotFoundPage;

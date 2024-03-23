@@ -1,6 +1,6 @@
-import React from 'react'
-import UserTemplate from '../../templates/user-template'
-import CourseGrid from '../../components/course/course-grid';
+import React from "react";
+import UserTemplate from "../../templates/user-template";
+import CourseGrid from "../../components/course/course-grid";
 
 const CoursePage = () => {
   return (
@@ -16,6 +16,6 @@ const CoursePage = () => {
       </div>
     </UserTemplate>
   );
-}
+};
 
-export default CoursePage
+export default CoursePage;

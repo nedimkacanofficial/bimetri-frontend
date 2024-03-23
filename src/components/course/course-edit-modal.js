@@ -1,14 +1,15 @@
-import { ErrorMessage, Field, Formik, useFormik } from "formik";
-import React from "react";
+import { ErrorMessage, Field, Formik } from "formik";
+import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "../../helpers/swal";
 import { object, string } from "yup";
+import { updateCourse } from "../../api/course-service";
 
-const CourseEditModal = ({ show, handleClose }) => {
+const CourseEditModal = ({ show, handleClose, loadData, selectedCourse }) => {
+  const [loading, setLoading] = useState(false);
+
   const initialValues = {
-    name: "",
-    surname: "",
-    schoolNumber: "",
+    name: selectedCourse.name,
   };
 
   const validationSchema = object({
@@ -20,22 +21,18 @@ const CourseEditModal = ({ show, handleClose }) => {
 
   const onSubmit = async (values) => {
     try {
-      // const resp = await addCity(values)
-      // toast("end",resp.data.name + " adding successful", "success", 2000);
-      handleClose(); // Modalı kapat
+      setLoading(true);
+      const resp = await updateCourse(selectedCourse.id, values);
+      toast("end", resp.data.message, "success", 2000);
+      loadData();
+      handleClose();
     } catch (error) {
       toast(error.response.data.message, "warning", 2000);
     } finally {
-      // setLoading(false);
-      formik.resetForm();
+      setLoading(false);
     }
   };
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit,
-  });
   return (
     <Modal size="lg" show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -48,33 +45,38 @@ const CourseEditModal = ({ show, handleClose }) => {
           onSubmit={onSubmit}
           enableReinitialize={true}
         >
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Name</Form.Label>
-              <Field
-                type="text"
-                id="name"
-                name="name"
-                className="form-control"
-                placeholder="Name"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-500 text-sm mt-1 text-danger"
-              />
-            </Form.Group>
-          </Form>
+          {({ handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Name</Form.Label>
+                <Field
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control"
+                  placeholder="Name"
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500 text-sm mt-1 text-danger"
+                />
+              </Form.Group>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" type="submit" disabled={loading}>
+                  Update
+                </Button>
+              </Modal.Footer>
+            </Form>
+          )}
         </Formik>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" type="submit" onClick={formik.handleSubmit}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };

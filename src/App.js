@@ -1,5 +1,5 @@
-import React from 'react'
-import CustomRoutes from './router/custom-routes'
+import React from "react";
+import CustomRoutes from "./router/custom-routes";
 
 const App = () => {
   return (
@@ -7,6 +7,6 @@ const App = () => {
       <CustomRoutes />
     </>
   );
-}
+};
 
-export default App
+export default App;

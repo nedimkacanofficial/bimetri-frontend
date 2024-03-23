@@ -5,12 +5,10 @@ import { toast } from "../../helpers/swal";
 import { object, string } from "yup";
 import { addCourse } from "../../api/course-service";
 
-const CourseAddModal = ({ show, handleClose }) => {
+const CourseAddModal = ({ show, handleClose, loadData }) => {
   const [loading, setLoading] = useState(false);
   const initialValues = {
     name: "",
-    surname: "",
-    schoolNumber: "",
   };
 
   const validationSchema = object({
@@ -25,11 +23,12 @@ const CourseAddModal = ({ show, handleClose }) => {
       setLoading(true);
       const resp = await addCourse(values);
       if (resp.status === 201 && resp.data.success === true) {
-        toast("end", resp.data.message + " adding successful", "success", 2000);
+        toast("end", resp.data.message, "success", 2000);
+        loadData();
         handleClose();
       }
     } catch (error) {
-      toast(error.response.data.message, "warning", 2000);
+      toast(error.response.data.message, 2000);
     } finally {
       setLoading(false);
     }
@@ -46,7 +45,6 @@ const CourseAddModal = ({ show, handleClose }) => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
-            enableReinitialize={true}
           >
             {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit}>

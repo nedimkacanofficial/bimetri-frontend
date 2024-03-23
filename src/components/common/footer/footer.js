@@ -1,6 +1,6 @@
-import React from 'react'
-import { Container, Navbar } from 'react-bootstrap'
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Container, Navbar } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
   const { pathname } = useLocation();
@@ -23,6 +23,6 @@ const Footer = () => {
       </Container>
     </Navbar>
   );
-}
+};
 
-export default Footer
+export default Footer;

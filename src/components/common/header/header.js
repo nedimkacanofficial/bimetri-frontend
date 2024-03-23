@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import settings from "../../../helpers/settings";
+import Image from "./../../../assets/image/bimetri_logo_yeni_web_transparent.png";
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -9,11 +9,29 @@ const Header = () => {
     <Navbar
       expand="lg"
       className="bg-info"
-      style={{ position: "sticky", top: 0, zIndex: 100 }}
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        alignItems: "flex-start",
+      }}
     >
-      <Container className="text-white">
-        <Navbar.Brand as={Link} to="/" active={pathname === "/"}>
-          {settings.siteName}
+      <Container className="text-center text-white">
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          active={pathname === "/"}
+          style={{
+            display: "flex",
+            alignItems: "center", // Dikeyde ortala
+            height: "100%", // Navbar.Brand'ı kaplaması için
+          }}
+        >
+          <img
+            src={Image}
+            alt="Description"
+            style={{ maxWidth: "100%", height: "auto", maxHeight: "30px" }}
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
